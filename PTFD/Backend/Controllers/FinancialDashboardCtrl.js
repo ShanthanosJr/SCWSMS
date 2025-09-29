@@ -19,8 +19,6 @@ const calculateLaborCosts = (workers, engineers, architects, projectManagers) =>
   let totalLaborCost = 0;
   const laborBreakdown = [];
 
-  console.log('👷 Processing workers:', workers);
-  
   // Calculate worker costs
   workers.forEach(worker => {
     if (worker && worker.role && worker.hoursWorked) {
@@ -36,7 +34,6 @@ const calculateLaborCosts = (workers, engineers, architects, projectManagers) =>
           rate: roleConfig.hourlyRate,
           cost: cost
         });
-        console.log(`  Worker ${worker.name} (${worker.role}): ${worker.hoursWorked} hours * $${roleConfig.hourlyRate}/hr = $${cost}`);
       } else {
         // Use default rate if role not found
         const defaultRate = 15; // Default worker rate
@@ -50,7 +47,6 @@ const calculateLaborCosts = (workers, engineers, architects, projectManagers) =>
           rate: defaultRate,
           cost: cost
         });
-        console.log(`  Worker ${worker.name} (${worker.role}): ${worker.hoursWorked} hours * $${defaultRate}/hr = $${cost} (default rate)`);
       }
     }
   });
@@ -151,26 +147,28 @@ const calculateMaterialCosts = (materials) => {
     if (material && material.name && material.quantity) {
       const materialConfig = SALARY_CONFIG.MATERIAL_COSTS[material.name];
       if (materialConfig) {
-        const cost = parseFloat(material.quantity) * materialConfig.costPerUnit;
+        const quantity = parseFloat(material.quantity);
+        const cost = quantity * materialConfig.costPerUnit;
         totalMaterialCost += cost;
         materialBreakdown.push({
           name: material.name,
-          quantity: parseFloat(material.quantity),
+          quantity: quantity,
           unit: material.unit || materialConfig.unit,
           unitCost: materialConfig.costPerUnit,
           totalCost: cost,
           category: materialConfig.category
         });
-        console.log(`  Material ${material.name}: ${material.quantity} ${material.unit || materialConfig.unit} * $${materialConfig.costPerUnit}/${material.unit || materialConfig.unit} = $${cost}`);
+        console.log(`  Material ${material.name}: ${quantity} ${material.unit || materialConfig.unit} * $${materialConfig.costPerUnit}/${material.unit || materialConfig.unit} = $${cost}`);
       } else if (material.cost) {
         // Use provided cost if no predefined cost available
         const cost = parseFloat(material.cost);
+        const quantity = parseFloat(material.quantity || 1);
         totalMaterialCost += cost;
         materialBreakdown.push({
           name: material.name,
-          quantity: parseFloat(material.quantity || 1),
+          quantity: quantity,
           unit: material.unit || 'unit',
-          unitCost: cost / (parseFloat(material.quantity) || 1),
+          unitCost: quantity > 0 ? cost / quantity : 0,
           totalCost: cost,
           category: 'Custom'
         });
@@ -178,17 +176,18 @@ const calculateMaterialCosts = (materials) => {
       } else {
         // Use default cost if no configuration and no cost provided
         const defaultCostPerUnit = 10; // Default material cost
-        const cost = parseFloat(material.quantity) * defaultCostPerUnit;
+        const quantity = parseFloat(material.quantity);
+        const cost = quantity * defaultCostPerUnit;
         totalMaterialCost += cost;
         materialBreakdown.push({
           name: material.name,
-          quantity: parseFloat(material.quantity),
+          quantity: quantity,
           unit: material.unit || 'unit',
           unitCost: defaultCostPerUnit,
           totalCost: cost,
           category: 'Default'
         });
-        console.log(`  Material ${material.name}: ${material.quantity} units * $${defaultCostPerUnit}/unit = $${cost} (default rate)`);
+        console.log(`  Material ${material.name}: ${quantity} units * $${defaultCostPerUnit}/unit = $${cost} (default rate)`);
       }
     }
   });
@@ -206,12 +205,14 @@ const calculateToolCosts = (tools) => {
     if (tool && tool.name && tool.quantity) {
       const toolConfig = SALARY_CONFIG.TOOL_COSTS[tool.name];
       if (toolConfig) {
-        // Assume rental for 1 day per quantity
-        const cost = parseFloat(tool.quantity) * toolConfig.rentalPerDay;
+        // Calculate cost based on rental period or default to 1 day
+        const rentalDays = tool.rentalDays ? parseFloat(tool.rentalDays) : 1;
+        const cost = parseFloat(tool.quantity) * toolConfig.rentalPerDay * rentalDays;
         totalToolCost += cost;
         toolBreakdown.push({
           name: tool.name,
           quantity: parseFloat(tool.quantity),
+          rentalDays: rentalDays,
           dailyRate: toolConfig.rentalPerDay,
           totalCost: cost,
           category: toolConfig.category,
@@ -220,11 +221,13 @@ const calculateToolCosts = (tools) => {
       } else {
         // Use default rental rate if tool not found
         const defaultRentalRate = 20; // Default tool rental rate per day
-        const cost = parseFloat(tool.quantity) * defaultRentalRate;
+        const rentalDays = tool.rentalDays ? parseFloat(tool.rentalDays) : 1;
+        const cost = parseFloat(tool.quantity) * defaultRentalRate * rentalDays;
         totalToolCost += cost;
         toolBreakdown.push({
           name: tool.name,
           quantity: parseFloat(tool.quantity),
+          rentalDays: rentalDays,
           dailyRate: defaultRentalRate,
           totalCost: cost,
           category: 'Default',
@@ -283,7 +286,19 @@ const getAllDashboards = async (req, res) => {
 // Get single financial dashboard by ID
 const getDashboardById = async (req, res) => {
   try {
-    const dashboard = await FinancialDashboard.findById(req.params.id);
+    // First try to find by MongoDB _id
+    // We need to handle the case where req.params.id is not a valid ObjectId
+    let dashboard = null;
+    
+    // Check if the ID looks like a MongoDB ObjectId (24-character hex string)
+    if (/^[0-9a-fA-F]{24}$/.test(req.params.id)) {
+      dashboard = await FinancialDashboard.findById(req.params.id);
+    }
+    
+    // If not found or not a valid ObjectId, try to find by dashboardId field
+    if (!dashboard) {
+      dashboard = await FinancialDashboard.findOne({ dashboardId: req.params.id });
+    }
     
     if (!dashboard) {
       return res.status(404).json({
@@ -421,7 +436,9 @@ const calculateFinancialDashboard = async (req, res) => {
 
         // Calculate expenses
         const timelineExpenses = (timeline.texpenses || []).reduce((sum, exp) => {
-          return sum + (parseFloat(exp.amount) || 0);
+          // Handle both amount and cost fields for backward compatibility
+          const amount = parseFloat(exp.amount) || parseFloat(exp.cost) || 0;
+          return sum + amount;
         }, 0);
 
         console.log(`💰 Timeline costs - Labor: $${timelineLaborCost}, Materials: $${timelineMaterialCost}, Tools: $${timelineToolCost}, Expenses: $${timelineExpenses}`);
@@ -461,13 +478,69 @@ const calculateFinancialDashboard = async (req, res) => {
         laborAnalytics.totalArchitects += (timeline.tarchitect || []).length;
         laborAnalytics.totalProjectManagers += (timeline.tprojectManager || []).length;
 
-        // Count labor hours
+        // Count labor hours and aggregate by role
         laborBreakdown.forEach(labor => {
           laborAnalytics.totalLaborHours += labor.hours || 0;
+          
+          // Find existing role entry or create new one
+          const existingRole = laborAnalytics.laborByRole.find(item => item.role === labor.role);
+          if (existingRole) {
+            existingRole.count += 1;
+            existingRole.totalHours += labor.hours || 0;
+            existingRole.totalCost += labor.cost || 0;
+            existingRole.averageRate = existingRole.totalHours > 0 ? existingRole.totalCost / existingRole.totalHours : 0;
+          } else {
+            laborAnalytics.laborByRole.push({
+              role: labor.role,
+              count: 1,
+              totalHours: labor.hours || 0,
+              totalCost: labor.cost || 0,
+              averageRate: labor.rate || 0
+            });
+          }
         });
 
-        materialAnalytics.totalMaterials += (timeline.tmaterials || []).length;
-        toolAnalytics.totalTools += (timeline.ttools || []).length;
+        // Aggregate materials by type
+        materialBreakdown.forEach(material => {
+          materialAnalytics.totalMaterials += 1;
+          
+          // Find existing material entry or create new one
+          const existingMaterial = materialAnalytics.materialsByType.find(item => item.name === material.name);
+          if (existingMaterial) {
+            existingMaterial.totalQuantity += material.quantity || 0;
+            existingMaterial.totalCost += material.totalCost || 0;
+            existingMaterial.averageCost = existingMaterial.totalQuantity > 0 ? existingMaterial.totalCost / existingMaterial.totalQuantity : 0;
+          } else {
+            materialAnalytics.materialsByType.push({
+              name: material.name,
+              totalQuantity: material.quantity || 0,
+              totalCost: material.totalCost || 0,
+              averageCost: material.unitCost || 0,
+              unit: material.unit || 'unit'
+            });
+          }
+        });
+
+        // Aggregate tools by type
+        toolBreakdown.forEach(tool => {
+          toolAnalytics.totalTools += 1;
+          
+          // Find existing tool entry or create new one
+          const existingTool = toolAnalytics.toolsByType.find(item => item.name === tool.name);
+          if (existingTool) {
+            existingTool.totalQuantity += tool.quantity || 0;
+            existingTool.totalCost += tool.totalCost || 0;
+            existingTool.averageCost = existingTool.totalQuantity > 0 ? existingTool.totalCost / existingTool.totalQuantity : 0;
+          } else {
+            toolAnalytics.toolsByType.push({
+              name: tool.name,
+              totalQuantity: tool.quantity || 0,
+              totalCost: tool.totalCost || 0,
+              averageCost: tool.dailyRate || 0,
+              status: tool.status || 'Unknown'
+            });
+          }
+        });
       }
 
       // Calculate total project cost
@@ -482,6 +555,7 @@ const calculateFinancialDashboard = async (req, res) => {
         projectType: project.ptype,
         projectPriority: project.ppriority,
         totalCost: totalProjectCostForThisProject,
+        baseCost: projectCost,
         laborCost: projectLaborCost,
         materialCost: projectMaterialCost,
         toolCost: projectToolCost,
@@ -524,11 +598,22 @@ const calculateFinancialDashboard = async (req, res) => {
       totalExpenses,
       projectBreakdown,
       laborAnalytics: {
-        ...laborAnalytics,
-        averageHourlyRate: laborAnalytics.totalLaborHours > 0 ? totalLaborCost / laborAnalytics.totalLaborHours : 0
+        totalWorkers: laborAnalytics.totalWorkers || 0,
+        totalEngineers: laborAnalytics.totalEngineers || 0,
+        totalArchitects: laborAnalytics.totalArchitects || 0,
+        totalProjectManagers: laborAnalytics.totalProjectManagers || 0,
+        totalLaborHours: laborAnalytics.totalLaborHours || 0,
+        averageHourlyRate: laborAnalytics.totalLaborHours > 0 ? totalLaborCost / laborAnalytics.totalLaborHours : 0,
+        laborByRole: Array.isArray(laborAnalytics.laborByRole) ? laborAnalytics.laborByRole.map(item => ({ ...item })) : []
       },
-      materialAnalytics,
-      toolAnalytics,
+      materialAnalytics: {
+        totalMaterials: materialAnalytics.totalMaterials || 0,
+        materialsByType: Array.isArray(materialAnalytics.materialsByType) ? materialAnalytics.materialsByType.map(item => ({ ...item })) : []
+      },
+      toolAnalytics: {
+        totalTools: toolAnalytics.totalTools || 0,
+        toolsByType: Array.isArray(toolAnalytics.toolsByType) ? toolAnalytics.toolsByType.map(item => ({ ...item })) : []
+      },
       financialSummary: {
         grandTotal,
         projectCount: projects.length,
@@ -564,11 +649,27 @@ const calculateFinancialDashboard = async (req, res) => {
 // Update financial dashboard
 const updateDashboard = async (req, res) => {
   try {
-    const dashboard = await FinancialDashboard.findByIdAndUpdate(
-      req.params.id,
-      { ...req.body, lastUpdated: new Date() },
-      { new: true, runValidators: true }
-    );
+    // First try to find by MongoDB _id
+    // We need to handle the case where req.params.id is not a valid ObjectId
+    let dashboard = null;
+    
+    // Check if the ID looks like a MongoDB ObjectId (24-character hex string)
+    if (/^[0-9a-fA-F]{24}$/.test(req.params.id)) {
+      dashboard = await FinancialDashboard.findByIdAndUpdate(
+        req.params.id,
+        { ...req.body, lastUpdated: new Date() },
+        { new: true, runValidators: true }
+      );
+    }
+    
+    // If not found or not a valid ObjectId, try to find by dashboardId field
+    if (!dashboard) {
+      dashboard = await FinancialDashboard.findOneAndUpdate(
+        { dashboardId: req.params.id },
+        { ...req.body, lastUpdated: new Date() },
+        { new: true, runValidators: true }
+      );
+    }
 
     if (!dashboard) {
       return res.status(404).json({
@@ -595,7 +696,19 @@ const updateDashboard = async (req, res) => {
 // Delete financial dashboard
 const deleteDashboard = async (req, res) => {
   try {
-    const dashboard = await FinancialDashboard.findByIdAndDelete(req.params.id);
+    // First try to find by MongoDB _id
+    // We need to handle the case where req.params.id is not a valid ObjectId
+    let dashboard = null;
+    
+    // Check if the ID looks like a MongoDB ObjectId (24-character hex string)
+    if (/^[0-9a-fA-F]{24}$/.test(req.params.id)) {
+      dashboard = await FinancialDashboard.findByIdAndDelete(req.params.id);
+    }
+    
+    // If not found or not a valid ObjectId, try to find by dashboardId field
+    if (!dashboard) {
+      dashboard = await FinancialDashboard.findOneAndDelete({ dashboardId: req.params.id });
+    }
 
     if (!dashboard) {
       return res.status(404).json({
@@ -660,7 +773,19 @@ const getAvailableProjects = async (req, res) => {
 // Export financial dashboard to PDF
 const exportDashboard = async (req, res) => {
   try {
-    const dashboard = await FinancialDashboard.findById(req.params.id);
+    // First try to find by MongoDB _id
+    // We need to handle the case where req.params.id is not a valid ObjectId
+    let dashboard = null;
+    
+    // Check if the ID looks like a MongoDB ObjectId (24-character hex string)
+    if (/^[0-9a-fA-F]{24}$/.test(req.params.id)) {
+      dashboard = await FinancialDashboard.findById(req.params.id);
+    }
+    
+    // If not found or not a valid ObjectId, try to find by dashboardId field
+    if (!dashboard) {
+      dashboard = await FinancialDashboard.findOne({ dashboardId: req.params.id });
+    }
     
     if (!dashboard) {
       return res.status(404).json({

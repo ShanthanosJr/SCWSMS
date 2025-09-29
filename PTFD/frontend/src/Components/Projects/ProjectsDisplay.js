@@ -931,7 +931,7 @@ export default function ProjectsDisplay() {
                           </button>
                           <button
                             className="btn btn-outline-secondary"
-                            onClick={() => navigate(`/projects/${project._id}`)}
+                            onClick={() => navigate(`/ptfd/projects/${project._id}`)}
                             title="Edit Project"
                           >
                             <BsPencil />
@@ -1068,7 +1068,7 @@ export default function ProjectsDisplay() {
                             </button>
                             <button
                               className="btn btn-outline-secondary"
-                              onClick={() => navigate(`/projects/${project._id}`)}
+                              onClick={() => navigate(`/ptfd/projects/${project._id}`)}
                               title="Edit Project"
                             >
                               <BsPencil />

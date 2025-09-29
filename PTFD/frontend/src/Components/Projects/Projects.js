@@ -283,14 +283,14 @@ export default function Projects({ project, onDelete }) {
           <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-auto">
             <button 
               className="btn btn-outline-info btn-sm flex-fill"
-              onClick={() => navigate(`/project-view/${project._id}`)}
+              onClick={() => navigate(`/ptfd/project-view/${project._id}`)}
               title="View Details"
             >
               👁️ View
             </button>
             <button 
               className="btn btn-outline-warning btn-sm flex-fill"
-              onClick={() => navigate(`/projects/${project._id}`)}
+              onClick={() => navigate(`/ptfd/projects/${project._id}`)}
               title="Edit Project"
             >
               ✏️ Edit

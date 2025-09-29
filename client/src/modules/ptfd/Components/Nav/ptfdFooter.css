@@ -1,0 +1,607 @@
+/* Import Timeline Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Crimson+Text:wght@400;600;700&display=swap');
+
+/* CSS Variables - Enhanced with Timeline Colors */
+:root {
+  --ptfd-primary: #f1c40f;
+  --ptfd-primary-dark: #f39c12;
+  --ptfd-secondary: #2c3e50;
+  --ptfd-secondary-light: #34495e;
+  --ptfd-white: #ffffff;
+  --ptfd-black: #1a1a1a;
+  --ptfd-gray-light: #f8f9fa;
+  --ptfd-gray-medium: #6c757d;
+  --ptfd-gray-dark: #343a40;
+  --ptfd-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --ptfd-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+  --ptfd-border-radius: 12px;
+  --ptfd-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --ptfd-font-primary: 'Open Sans', sans-serif;
+  --ptfd-font-heading: 'Poppins', sans-serif;
+  --ptfd-font-mono: 'IBM Plex Mono', monospace;
+  
+  /* Timeline Variables */
+  --timeline-primary: #f59e0b;
+  --timeline-primary-dark: #d97706;
+  --timeline-accent: #fbbf24;
+  --timeline-font-primary: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --timeline-font-display: 'Crimson Text', Georgia, serif;
+}
+
+/* NUCLEAR BOOTSTRAP OVERRIDE - Maximum Specificity */
+html body div section footer.construction-footer.ptfd-construction-footer,
+html body div main footer.construction-footer.ptfd-construction-footer,
+html body div footer.construction-footer.ptfd-construction-footer,
+html body section footer.construction-footer.ptfd-construction-footer,
+html body main footer.construction-footer.ptfd-construction-footer,
+html body footer.construction-footer.ptfd-construction-footer,
+html body .construction-footer.ptfd-construction-footer,
+body div footer.construction-footer.ptfd-construction-footer,
+body footer.construction-footer.ptfd-construction-footer,
+footer.construction-footer.ptfd-construction-footer,
+.construction-footer.ptfd-construction-footer {
+  user-select: none !important;
+  position: relative !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  padding: 4rem 0 2rem 0 !important;
+  padding-top: 4rem !important;
+  padding-bottom: 2rem !important;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  margin: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  z-index: 20 !important;
+  color: var(--ptfd-white) !important;
+  text-align: center !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  display: block !important;
+  min-height: auto !important;
+  max-height: none !important;
+  height: auto !important;
+  box-sizing: border-box !important;
+  float: none !important;
+  clear: both !important;
+}
+
+/* Construction Background Image - Nuclear Override */
+html body div section footer.construction-footer.ptfd-construction-footer::before,
+html body div main footer.construction-footer.ptfd-construction-footer::before,
+html body div footer.construction-footer.ptfd-construction-footer::before,
+html body section footer.construction-footer.ptfd-construction-footer::before,
+html body main footer.construction-footer.ptfd-construction-footer::before,
+html body footer.construction-footer.ptfd-construction-footer::before,
+html body .construction-footer.ptfd-construction-footer::before,
+body div footer.construction-footer.ptfd-construction-footer::before,
+body footer.construction-footer.ptfd-construction-footer::before,
+footer.construction-footer.ptfd-construction-footer::before,
+.construction-footer.ptfd-construction-footer::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: url('https://images.pexels.com/photos/4513940/pexels-photo-4513940.jpeg?w=1920&h=1080&fit=crop') center center/cover no-repeat !important;
+  background-image: url('https://images.pexels.com/photos/4513940/pexels-photo-4513940.jpeg?w=1920&h=1080&fit=crop') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  z-index: -2 !important;
+  animation: ptfd-construction-flow 25s ease-in-out infinite !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Glass Blur Overlay - Nuclear Override */
+html body div section footer.construction-footer.ptfd-construction-footer::after,
+html body div main footer.construction-footer.ptfd-construction-footer::after,
+html body div footer.construction-footer.ptfd-construction-footer::after,
+html body section footer.construction-footer.ptfd-construction-footer::after,
+html body main footer.construction-footer.ptfd-construction-footer::after,
+html body footer.construction-footer.ptfd-construction-footer::after,
+html body .construction-footer.ptfd-construction-footer::after,
+body div footer.construction-footer.ptfd-construction-footer::after,
+body footer.construction-footer.ptfd-construction-footer::after,
+footer.construction-footer.ptfd-construction-footer::after,
+.construction-footer.ptfd-construction-footer::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(135deg, 
+    rgba(30, 41, 59, 0.4) 0%, 
+    rgba(51, 65, 85, 0.5) 25%, 
+    rgba(71, 85, 105, 0.6) 50%, 
+    rgba(100, 116, 139, 0.7) 75%, 
+    rgba(15, 23, 42, 0.8) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  z-index: -1 !important;
+  border-radius: var(--ptfd-border-radius) var(--ptfd-border-radius) 0 0 !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 -15px 40px rgba(0, 0, 0, 0.25) !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Nuclear Border Removal */
+html body div section footer.construction-footer.ptfd-construction-footer,
+html body div main footer.construction-footer.ptfd-construction-footer,
+html body div footer.construction-footer.ptfd-construction-footer,
+html body section footer.construction-footer.ptfd-construction-footer,
+html body main footer.construction-footer.ptfd-construction-footer,
+html body footer.construction-footer.ptfd-construction-footer,
+footer.construction-footer.ptfd-construction-footer {
+  border-top: none !important;
+  border-top-color: transparent !important;
+  border-top-width: 0 !important;
+  border-top-style: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Force remove any borders from all child elements */
+html body div section footer.construction-footer.ptfd-construction-footer *,
+html body div main footer.construction-footer.ptfd-construction-footer *,
+html body div footer.construction-footer.ptfd-construction-footer *,
+html body section footer.construction-footer.ptfd-construction-footer *,
+html body main footer.construction-footer.ptfd-construction-footer *,
+html body footer.construction-footer.ptfd-construction-footer *,
+footer.construction-footer.ptfd-construction-footer * {
+  border-top: none !important;
+  border-top-color: transparent !important;
+  box-sizing: border-box !important;
+}
+
+/* TIMELINE GRADIENT BRAND TITLE - Nuclear Override */
+html body div section footer.construction-footer.ptfd-construction-footer .ptfd-brand-text,
+html body div main footer.construction-footer.ptfd-construction-footer .ptfd-brand-text,
+html body div footer.construction-footer.ptfd-construction-footer .ptfd-brand-text,
+html body section footer.construction-footer.ptfd-construction-footer .ptfd-brand-text,
+html body main footer.construction-footer.ptfd-construction-footer .ptfd-brand-text,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-brand-text,
+html body footer.construction-footer.ptfd-construction-footer .footer-brand,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-brand,
+footer.construction-footer.ptfd-construction-footer .ptfd-brand-text,
+footer.construction-footer.ptfd-construction-footer .footer-brand,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-brand {
+  font-family: var(--timeline-font-display) !important;
+  font-weight: 900 !important;
+  font-size: clamp(2rem, 5vw, 3rem) !important;
+  position: relative !important;
+  z-index: 15 !important;
+  background: none !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  letter-spacing: 1px !important;
+  line-height: 1.2 !important;
+  
+  /* Timeline Hero Title Gradient Effect */
+  background: linear-gradient(180deg, #ffffff 0%, #e9eef2 45%, #94a3b8 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6) !important;
+  
+  /* Fallback for browsers that don't support background-clip */
+  color: #ffffff !important;
+}
+
+/* TIMELINE GRADIENT TAGLINE - Nuclear Override */
+html body div section footer.construction-footer.ptfd-construction-footer .footer-tagline,
+html body div main footer.construction-footer.ptfd-construction-footer .footer-tagline,
+html body div footer.construction-footer.ptfd-construction-footer .footer-tagline,
+html body section footer.construction-footer.ptfd-construction-footer .footer-tagline,
+html body main footer.construction-footer.ptfd-construction-footer .footer-tagline,
+html body footer.construction-footer.ptfd-construction-footer .footer-tagline,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-tagline,
+footer.construction-footer.ptfd-construction-footer .footer-tagline,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-tagline {
+  font-family: var(--timeline-font-display) !important;
+  font-style: italic !important;
+  font-weight: 600 !important;
+  font-size: clamp(1rem, 2.5vw, 1.3rem) !important;
+  letter-spacing: 1px !important;
+  position: relative !important;
+  z-index: 15 !important;
+  margin: 1rem 0 2rem 0 !important;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  line-height: 1.4 !important;
+  
+  /* Timeline Subtitle Gradient Effect */
+  background: linear-gradient(180deg, #ffffff 0%, #dbe3e9 60%, #7c8a96 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-shadow: 0 3px 8px rgba(0,0,0,0.5) !important;
+  
+  /* Fallback for browsers that don't support background-clip */
+  color: #ffffff !important;
+}
+
+/* TIMELINE DESCRIPTION COLOR - Contact & Copyright - Nuclear Override */
+html body div section footer.construction-footer.ptfd-construction-footer .ptfd-contact-item,
+html body div main footer.construction-footer.ptfd-construction-footer .ptfd-contact-item,
+html body div footer.construction-footer.ptfd-construction-footer .ptfd-contact-item,
+html body section footer.construction-footer.ptfd-construction-footer .ptfd-contact-item,
+html body main footer.construction-footer.ptfd-construction-footer .ptfd-contact-item,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-contact-item,
+html body footer.construction-footer.ptfd-construction-footer .footer-copy,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-copy,
+footer.construction-footer.ptfd-construction-footer .ptfd-contact-item,
+footer.construction-footer.ptfd-construction-footer .footer-copy,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-copy {
+  font-family: var(--timeline-font-primary) !important;
+  font-weight: 500 !important;
+  font-size: clamp(0.9rem, 2vw, 1.1rem) !important;
+  position: relative !important;
+  z-index: 15 !important;
+  margin: 8px 0 !important;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  line-height: 1.6 !important;
+  
+  /* Timeline Description Color - Light Steel Gray */
+  color: #e5e9ed !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6) !important;
+}
+
+/* Footer Copy Container Styling */
+html body footer.construction-footer.ptfd-construction-footer .footer-copy,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-copy,
+footer.construction-footer.ptfd-construction-footer .footer-copy,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-copy {
+  margin-top: 2rem !important;
+  border-top: 1px solid rgba(229, 233, 237, 0.2) !important;
+  padding-top: 1rem !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(10px) !important;
+  border-radius: var(--ptfd-border-radius) !important;
+  padding: 1.5rem !important;
+  border: 1px solid rgba(229, 233, 237, 0.1) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* SOCIAL LINKS - Timeline Enhanced - Nuclear Override */
+html body div section footer.construction-footer.ptfd-construction-footer .footer-social,
+html body div main footer.construction-footer.ptfd-construction-footer .footer-social,
+html body div footer.construction-footer.ptfd-construction-footer .footer-social,
+html body section footer.construction-footer.ptfd-construction-footer .footer-social,
+html body main footer.construction-footer.ptfd-construction-footer .footer-social,
+html body footer.construction-footer.ptfd-construction-footer .footer-social,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-social,
+footer.construction-footer.ptfd-construction-footer .footer-social,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-social {
+  position: relative !important;
+  z-index: 15 !important;
+  margin: 2rem 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  background: none !important;
+  border: none !important;
+}
+
+html body div section footer.construction-footer.ptfd-construction-footer .footer-social a,
+html body div main footer.construction-footer.ptfd-construction-footer .footer-social a,
+html body div footer.construction-footer.ptfd-construction-footer .footer-social a,
+html body section footer.construction-footer.ptfd-construction-footer .footer-social a,
+html body main footer.construction-footer.ptfd-construction-footer .footer-social a,
+html body footer.construction-footer.ptfd-construction-footer .footer-social a,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-social a,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-social-link,
+footer.construction-footer.ptfd-construction-footer .footer-social a,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-social a,
+footer.construction-footer.ptfd-construction-footer .ptfd-social-link {
+  display: inline-flex !important;
+  margin: 0 15px !important;
+  font-size: 2rem !important;
+  position: relative !important;
+  background: rgba(229, 233, 237, 0.15) !important;
+  border-radius: 50% !important;
+  width: 60px !important;
+  height: 60px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  backdrop-filter: blur(15px) !important;
+  border: 2px solid rgba(229, 233, 237, 0.3) !important;
+  z-index: 15 !important;
+  text-decoration: none !important;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25) !important;
+  transition: var(--ptfd-transition) !important;
+  
+  /* Timeline Description Color */
+  color: #e5e9ed !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6) !important;
+}
+
+html body div section footer.construction-footer.ptfd-construction-footer .footer-social a:hover,
+html body div main footer.construction-footer.ptfd-construction-footer .footer-social a:hover,
+html body div footer.construction-footer.ptfd-construction-footer .footer-social a:hover,
+html body section footer.construction-footer.ptfd-construction-footer .footer-social a:hover,
+html body main footer.construction-footer.ptfd-construction-footer .footer-social a:hover,
+html body footer.construction-footer.ptfd-construction-footer .footer-social a:hover,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-social a:hover,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-social-link:hover,
+footer.construction-footer.ptfd-construction-footer .footer-social a:hover,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-social a:hover,
+footer.construction-footer.ptfd-construction-footer .ptfd-social-link:hover {
+  color: #ffffff !important;
+  background: rgba(245, 158, 11, 0.25) !important;
+  transform: translateY(-8px) scale(1.15) !important;
+  box-shadow: 0 15px 30px rgba(245, 158, 11, 0.4) !important;
+  border-color: rgba(245, 158, 11, 0.6) !important;
+  text-decoration: none !important;
+  text-shadow: 0 0 15px rgba(245, 158, 11, 0.8) !important;
+}
+
+/* FOOTER NAVIGATION LINKS - Timeline Enhanced - Nuclear Override */
+html body div section footer.construction-footer.ptfd-construction-footer .footer-links,
+html body div main footer.construction-footer.ptfd-construction-footer .footer-links,
+html body div footer.construction-footer.ptfd-construction-footer .footer-links,
+html body section footer.construction-footer.ptfd-construction-footer .footer-links,
+html body main footer.construction-footer.ptfd-construction-footer .footer-links,
+html body footer.construction-footer.ptfd-construction-footer .footer-links,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-links,
+footer.construction-footer.ptfd-construction-footer .footer-links,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-links {
+  position: relative !important;
+  z-index: 15 !important;
+  margin: 2rem 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  background: none !important;
+  border: none !important;
+}
+
+html body div section footer.construction-footer.ptfd-construction-footer .footer-links a,
+html body div main footer.construction-footer.ptfd-construction-footer .footer-links a,
+html body div footer.construction-footer.ptfd-construction-footer .footer-links a,
+html body section footer.construction-footer.ptfd-construction-footer .footer-links a,
+html body main footer.construction-footer.ptfd-construction-footer .footer-links a,
+html body footer.construction-footer.ptfd-construction-footer .footer-links a,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-links a,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-link,
+footer.construction-footer.ptfd-construction-footer .footer-links a,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-links a,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-link {
+  font-family: var(--timeline-font-primary) !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  margin: 0 15px !important;
+  text-decoration: none !important;
+  transition: var(--ptfd-transition) !important;
+  position: relative !important;
+  display: inline-block !important;
+  padding: 10px 20px !important;
+  border-radius: 30px !important;
+  background: rgba(229, 233, 237, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 2px solid rgba(229, 233, 237, 0.2) !important;
+  z-index: 15 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  
+  /* Timeline Description Color */
+  color: #e5e9ed !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6) !important;
+}
+
+html body div section footer.construction-footer.ptfd-construction-footer .footer-links a:hover,
+html body div main footer.construction-footer.ptfd-construction-footer .footer-links a:hover,
+html body div footer.construction-footer.ptfd-construction-footer .footer-links a:hover,
+html body section footer.construction-footer.ptfd-construction-footer .footer-links a:hover,
+html body main footer.construction-footer.ptfd-construction-footer .footer-links a:hover,
+html body footer.construction-footer.ptfd-construction-footer .footer-links a:hover,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-links a:hover,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-link:hover,
+footer.construction-footer.ptfd-construction-footer .footer-links a:hover,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-links a:hover,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-link:hover {
+  color: #ffffff !important;
+  background: rgba(245, 158, 11, 0.2) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 25px rgba(245, 158, 11, 0.3) !important;
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.7) !important;
+  text-decoration: none !important;
+}
+
+/* CONTAINER BOOTSTRAP NUCLEAR OVERRIDE */
+html body div section footer.construction-footer.ptfd-construction-footer .container,
+html body div main footer.construction-footer.ptfd-construction-footer .container,
+html body div footer.construction-footer.ptfd-construction-footer .container,
+html body section footer.construction-footer.ptfd-construction-footer .container,
+html body main footer.construction-footer.ptfd-construction-footer .container,
+html body footer.construction-footer.ptfd-construction-footer .container,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-container,
+html body footer.construction-footer.ptfd-construction-footer .container-fluid,
+footer.construction-footer.ptfd-construction-footer .container,
+footer.construction-footer.ptfd-construction-footer .ptfd-container,
+footer.construction-footer.ptfd-construction-footer .container-fluid {
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  position: relative !important;
+  z-index: 15 !important;
+  background: none !important;
+  border: none !important;
+  box-sizing: border-box !important;
+  display: block !important;
+}
+
+/* ROW & COL BOOTSTRAP NUCLEAR OVERRIDE */
+html body footer.construction-footer.ptfd-construction-footer .row,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-row,
+footer.construction-footer.ptfd-construction-footer .row,
+footer.construction-footer.ptfd-construction-footer .ptfd-row {
+  display: block !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  z-index: 15 !important;
+  background: none !important;
+  border: none !important;
+  box-sizing: border-box !important;
+}
+
+html body footer.construction-footer.ptfd-construction-footer .col-12,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-col-12,
+footer.construction-footer.ptfd-construction-footer .col-12,
+footer.construction-footer.ptfd-construction-footer .ptfd-col-12 {
+  position: relative !important;
+  width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+  z-index: 15 !important;
+  background: none !important;
+  border: none !important;
+  box-sizing: border-box !important;
+  display: block !important;
+}
+
+/* BRAND SECTION BOOTSTRAP OVERRIDE */
+html body footer.construction-footer.ptfd-construction-footer .footer-brand,
+html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-brand,
+footer.construction-footer.ptfd-construction-footer .footer-brand,
+footer.construction-footer.ptfd-construction-footer .ptfd-footer-brand {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 2rem !important;
+  margin-bottom: 2rem !important;
+  flex-wrap: wrap !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  position: relative !important;
+  z-index: 15 !important;
+}
+
+/* CONSTRUCTION FLOW ANIMATION */
+@keyframes ptfd-construction-flow {
+  0%, 100% {
+    transform: scale(1) translateX(0) translateY(0);
+    filter: hue-rotate(0deg) brightness(1) contrast(1);
+  }
+  25% {
+    transform: scale(1.02) translateX(-8px) translateY(-4px);
+    filter: hue-rotate(10deg) brightness(1.1) contrast(1.05);
+  }
+  50% {
+    transform: scale(1.01) translateX(6px) translateY(3px);
+    filter: hue-rotate(-5deg) brightness(0.95) contrast(0.98);
+  }
+  75% {
+    transform: scale(1.03) translateX(-4px) translateY(-2px);
+    filter: hue-rotate(15deg) brightness(1.05) contrast(1.02);
+  }
+}
+
+/* Force Animation to Work */
+html body footer.construction-footer.ptfd-construction-footer::before,
+footer.construction-footer.ptfd-construction-footer::before {
+  animation: ptfd-construction-flow 25s ease-in-out infinite !important;
+  animation-play-state: running !important;
+  animation-fill-mode: both !important;
+}
+
+/* Construction Site Droplet Effects */
+html body footer.construction-footer.ptfd-construction-footer .ptfd-brand-text::before,
+footer.construction-footer.ptfd-construction-footer .ptfd-brand-text::before {
+  content: '🏗️' !important;
+  position: absolute !important;
+  top: -15px !important;
+  right: -20px !important;
+  font-size: 1.2rem !important;
+  opacity: 0.7 !important;
+  animation: ptfd-construction-float 5s ease-in-out infinite !important;
+}
+
+@keyframes ptfd-droplet-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-8px) rotate(180deg);
+    opacity: 0.9;
+  }
+}
+
+/* Emergency fallback if image doesn't load */
+html body footer.construction-footer.ptfd-construction-footer::before,
+footer.construction-footer.ptfd-construction-footer::before {
+  background-color: #2980b9 !important;
+  background-image: 
+    url('https://images.pexels.com/photos/932638/pexels-photo-932638.jpeg'),
+    linear-gradient(135deg, #3498db, #2980b9, #34495e) !important;
+}
+
+/* Force override any external styles */
+html body footer.construction-footer.ptfd-construction-footer,
+footer.construction-footer.ptfd-construction-footer {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  html body footer.construction-footer.ptfd-construction-footer::before,
+  footer.construction-footer.ptfd-construction-footer::before {
+    background-position: center bottom !important;
+    background-size: cover !important;
+    background-attachment: scroll !important;
+  }
+  
+  html body footer.construction-footer.ptfd-construction-footer .footer-social a,
+  html body footer.construction-footer.ptfd-construction-footer .ptfd-footer-social a,
+  footer.construction-footer.ptfd-construction-footer .footer-social a,
+  footer.construction-footer.ptfd-construction-footer .ptfd-footer-social a {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 1.8rem !important;
+    margin: 0 10px !important;
+  }
+  
+  html body footer.construction-footer.ptfd-construction-footer .ptfd-brand-text,
+  footer.construction-footer.ptfd-construction-footer .ptfd-brand-text {
+    font-size: 2rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  html body footer.construction-footer.ptfd-construction-footer,
+  footer.construction-footer.ptfd-construction-footer {
+    padding: 3rem 0 1.5rem 0 !important;
+  }
+  
+  html body footer.construction-footer.ptfd-construction-footer .ptfd-brand-text,
+  footer.construction-footer.ptfd-construction-footer .ptfd-brand-text {
+    font-size: 1.5rem !important;
+    letter-spacing: 1px !important;
+  }
+}

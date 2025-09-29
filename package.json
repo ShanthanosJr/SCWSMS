@@ -1,6 +1,22 @@
 {
+  "name": "scwms",
+  "version": "1.0.0",
+  "description": "Unified SCWMS Application",
+  "scripts": {
+    "start-frontend": "cd client && npm start",
+    "start-wspm-backend": "cd WSPM/backend && npm start",
+    "start-etm-backend": "cd ETM/backend && npm run dev",
+    "start-cim-backend": "cd CIM/backend && npm start",
+    "start-mistm-backend": "cd MISTM/Backend && npm start",
+    "start-ptfd-backend": "cd PTFD/Backend && npm start",
+    "start": "concurrently \"npm run start-frontend\" \"npm run start-wspm-backend\" \"npm run start-etm-backend\" \"npm run start-cim-backend\" \"npm run start-mistm-backend\" \"npm run start-ptfd-backend\""
+  },
   "dependencies": {
     "nodemailer": "^7.0.6",
     "twilio": "^5.9.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
+

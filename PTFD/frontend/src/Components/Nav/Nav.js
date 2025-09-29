@@ -93,7 +93,7 @@ export default function Nav() {
 
               <li className="nav-menu-item">
                 <NavLink
-                  to="/profile"
+                  to="/ptfd/profile"
                   className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
                   onClick={closeMenu}
                 >
@@ -211,7 +211,7 @@ export default function Nav() {
                   </li>
                   <li>
                     <NavLink 
-                      to="/projects" 
+                      to="/ptfd/projects" 
                       className={({ isActive }) => `nav-submenu-link ${isActive ? 'nav-submenu-link-active' : ''}`} 
                       onClick={closeMenu}
                     >
@@ -221,7 +221,7 @@ export default function Nav() {
                   </li>
                   <li>
                     <NavLink 
-                      to="/project-timelines" 
+                      to="/ptfd/project-timelines" 
                       className={({ isActive }) => `nav-submenu-link ${isActive ? 'nav-submenu-link-active' : ''}`} 
                       onClick={closeMenu}
                     >
@@ -231,7 +231,7 @@ export default function Nav() {
                   </li>
                   <li>
                     <NavLink 
-                      to="/financial-dashboard" 
+                      to="/ptfd/financial-dashboard" 
                       className={({ isActive }) => `nav-submenu-link ${isActive ? 'nav-submenu-link-active' : ''}`} 
                       onClick={closeMenu}
                     >
@@ -241,17 +241,17 @@ export default function Nav() {
                   </li>
                                  <li>
                     <NavLink 
-                      to="/profile-dashboard" 
+                      to="/ptfd/profile-dashboard" 
                       className={({ isActive }) => `nav-submenu-link ${isActive ? 'nav-submenu-link-active' : ''}`} 
                       onClick={closeMenu}
                     >
                       <span className="nav-submenu-icon">👤</span>
-                      <span className="nav-submenu-text">User Dashboard</span>
+                      <span className="nav-submenu-text">Administrator Dashboard</span>
                     </NavLink>
                   </li>
                   <li>
                     <NavLink 
-                      to="/chatbot" 
+                      to="/ptfd/chatbot" 
                       className={({ isActive }) => `nav-submenu-link ${isActive ? 'nav-submenu-link-active' : ''}`} 
                       onClick={closeMenu}
                     >

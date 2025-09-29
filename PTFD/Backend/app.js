@@ -2,6 +2,7 @@ console.log("Starting PTFD Backend...");
 // vQSVBzYWHfOo7wa5
 
 require('dotenv').config();
+console.log("JWT_SECRET from env:", process.env.JWT_SECRET);
 
 const express = require("express");
 const mongoose = require("mongoose");

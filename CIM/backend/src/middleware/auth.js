@@ -1,23 +1,39 @@
+// backend/src/middleware/auth.js
 const jwt = require('jsonwebtoken');
-function auth(required=true){
-  return (req,res,next)=>{
-    const header = req.headers.authorization || '';
-    const token = header.startsWith('Bearer ')? header.slice(7) : null;
-    if(!token){
-      if(required) return res.status(401).json({ error: 'Unauthorized' });
-      req.user = null; return next();
-    }
-    try {
-      const payload = jwt.verify(token, process.env.JWT_SECRET || 'change_me');
-      req.user = payload; next();
-    } catch(e){ return res.status(401).json({ error: 'Invalid token'}); }
-  }
-}
-function allow(...roles){
-  return (req,res,next)=>{
-    if(!req.user) return res.status(401).json({ error: 'Unauthorized' });
-    if(!roles.includes(req.user.role)) return res.status(403).json({ error: 'Forbidden' });
+
+/* real middleware */
+function authMiddleware(req, res, next) {
+  try {
+    const h = req.headers?.authorization || '';
+    const token = h.startsWith('Bearer ') ? h.slice(7) : null;
+    if (!token) return res.status(401).json({ error: 'Unauthorized' });
+
+    const secret = process.env.JWT_SECRET || 'secret123';
+    const payload = jwt.verify(token, secret); // {_id, name, role}
+    req.user = payload;
     next();
+  } catch {
+    try { return res.status(401).json({ error: 'Unauthorized' }); } catch { return; }
   }
 }
-module.exports = { auth, allow };
+
+/* wrapper so both `auth` and `auth()` work */
+function auth(...args) {
+  if (args.length === 0) return authMiddleware;     // used as auth()
+  return authMiddleware(...args);                   // used as auth
+}
+
+/* role guard */
+function requireRole(role) {
+  const mw = (req, res, next) => {
+    if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+    if (req.user.role !== role) return res.status(403).json({ error: 'Forbidden' });
+    next();
+  };
+  return (...args) => (args.length === 0 ? mw : mw(...args));
+}
+
+/* exports */
+module.exports = auth;            // const auth = require(...)
+module.exports.auth = auth;       // const { auth } = require(...)
+module.exports.requireRole = requireRole;

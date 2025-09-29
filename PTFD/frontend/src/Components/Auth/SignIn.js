@@ -80,8 +80,8 @@ const SignIn = () => {
       )
       localStorage.setItem("token", userData.token)
 
-      // Navigate to construction home page
-      navigate("/projectshome")
+      // Navigate to Projects Dashboard
+      navigate("/projects")
     } catch (error) {
       console.error("Sign in error:", error)
       if (error.response && error.response.data) {

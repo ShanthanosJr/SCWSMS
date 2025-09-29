@@ -486,8 +486,13 @@ export default function AddProjectTimeline() {
       console.log('Timeline creation response:', response.data);
 
       setMessage("✅ Project timeline created successfully!");
-      localStorage.removeItem('timelineDraft'); // Clear draft on success
-      navigate("/project-timelines");
+      
+      // Show success message before navigation
+      setTimeout(() => {
+        localStorage.removeItem('timelineDraft'); // Clear draft on success
+        navigate("/project-timelines");
+      }, 2000); // Delay navigation to show success message
+    
     } catch (error) {
       console.error("Error creating timeline:", error.response?.data || error.message);
 

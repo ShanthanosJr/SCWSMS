@@ -118,16 +118,15 @@ export default function FinancialDashboardView() {
     setSharing(true);
     try {
       console.log('🔄 Sharing dashboard:', id);
-      const response = await axios.post(`http://localhost:5050/financial-dashboard/${id}/share`);
-      const shareUrl = response.data.shareUrl || `http://localhost:3000/financial-dashboard/${id}`;
-      await navigator.clipboard.writeText(shareUrl);
-      alert(`✅ Share URL copied: ${shareUrl}`);
-    } catch (error) {
-      console.error('❌ Share failed:', error);
-      console.error('❌ Share error details:', error.response?.data || error.message);
+      // Since there's no backend share endpoint, we'll just copy the direct URL
       const shareUrl = `http://localhost:3000/financial-dashboard/${id}`;
       await navigator.clipboard.writeText(shareUrl);
-      alert(`✅ Direct URL copied: ${shareUrl} (backend share unavailable)`);
+      alert(`✅ Direct URL copied: ${shareUrl}`);
+    } catch (error) {
+      console.error('❌ Share failed:', error);
+      const shareUrl = `http://localhost:3000/financial-dashboard/${id}`;
+      await navigator.clipboard.writeText(shareUrl);
+      alert(`✅ Direct URL copied: ${shareUrl}`);
     } finally {
       setSharing(false);
     }
@@ -227,12 +226,6 @@ export default function FinancialDashboardView() {
                       onClick={() => navigate("/financial-dashboard")}
                     >
                       ← Back to Dashboards
-                    </button>
-                    <button
-                      className="btn btn-outline-primary"
-                      onClick={() => window.location.reload()}
-                    >
-                      🔄 Retry
                     </button>
                   </div>
                 </div>

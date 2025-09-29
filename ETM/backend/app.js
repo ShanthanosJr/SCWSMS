@@ -32,7 +32,7 @@ app.use('/api/tools', toolRoutes);
 app.use('/api/rentals', rentalRoutes);
 
 // Start server
-const port = 3005; // You can hardcode the port or change it as needed
+const port = process.env.PORT || 5002; // Changed from 3005 to 5002
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

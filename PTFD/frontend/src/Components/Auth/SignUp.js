@@ -99,8 +99,8 @@ const SignUp = () => {
       )
       localStorage.setItem("token", userDataResponse.token)
 
-      // Navigate to construction home page
-      navigate("/projectshome")
+      // Navigate to Projects dashboard
+      navigate("/projects")
     } catch (error) {
       console.error("Sign up error:", error)
       if (error.response && error.response.data) {

@@ -503,7 +503,11 @@ export default function UpdateProjectTimeline() {
       console.log('✅ Timeline update response:', response.data);
 
       setMessage("✅ Project timeline updated successfully!");
-      navigate("/project-timelines");
+      
+      // Show success message before navigation
+      setTimeout(() => {
+        navigate("/project-timelines");
+      }, 2000); // Delay navigation to show success message
 
     } catch (error) {
       console.error("❌ Error updating timeline:", error.response?.data || error.message);

@@ -325,7 +325,7 @@ export default function ProfileDashboard() {
             <div className="spinner-border text-primary" style={{ width: '3rem', height: '3rem' }} role="status">
               <span className="visually-hidden">Loading...</span>
             </div>
-            <p className="mt-3 text-muted">Loading user dashboard...</p>
+            <p className="mt-3 text-muted">Loading Administrator dashboard...</p>
           </div>
         </div>
       </div>
@@ -407,7 +407,7 @@ export default function ProfileDashboard() {
                   maxWidth: '600px',
                   margin: '0 auto'
                 }}>
-                  Your premium user management platform. Track profiles, manage teams, and ensure collaboration across all your organization.</p>
+                  Your premium Administrator management platform. Track profiles, manage teams, and ensure collaboration across all your organization.</p>
                 <div className="d-flex justify-content-center gap-3 flex-wrap">
                   <button onClick={() => navigate("/projects")} className="btn btn-outline-primary btn-lg px-5 py-3 fw-semibold" style={{
                     borderRadius: '50px',
@@ -455,7 +455,7 @@ export default function ProfileDashboard() {
               <div className="card-body text-center p-4">
                 <BsPeople size={40} className="mb-3 opacity-75" />
                 <h3 className="fw-bold mb-1">{statistics.totalUsers}</h3>
-                <p className="mb-1">Total Users</p>
+                <p className="mb-1">Total Administrators</p>
                 <small className="opacity-75">+5 from last month</small>
               </div>
             </div>
@@ -466,7 +466,7 @@ export default function ProfileDashboard() {
               <div className="card-body text-center p-4">
                 <BsCheckCircle size={40} className="mb-3 opacity-75" />
                 <h3 className="fw-bold mb-1">{statistics.activeUsers}</h3>
-                <p className="mb-1">Active Users</p>
+                <p className="mb-1">Active Administrators</p>
                 <small className="opacity-75">+8% from last quarter</small>
               </div>
             </div>
@@ -477,7 +477,7 @@ export default function ProfileDashboard() {
               <div className="card-body text-center p-4">
                 <BsPerson size={40} className="mb-3 opacity-75" />
                 <h3 className="fw-bold mb-1">{statistics.avgAge.toFixed(1)}</h3>
-                <p className="mb-1">Average Age</p>
+                <p className="mb-1">Average Administrator Age</p>
                 <small className="opacity-75">Team demographics</small>
               </div>
             </div>
@@ -489,7 +489,7 @@ export default function ProfileDashboard() {
                 <BsActivity size={40} className="mb-3 opacity-75" />
                 <h3 className="fw-bold mb-1">{statistics.highAgeUsers}</h3>
                 <p className="mb-1">Senior Members</p>
-                <small className="opacity-75">Age 50+ users</small>
+                <small className="opacity-75">Age 50+ Administrators</small>
               </div>
             </div>
           </div>
@@ -629,7 +629,7 @@ export default function ProfileDashboard() {
                 <div className="card-header bg-light border-0">
                   <h5 className="mb-0 d-flex align-items-center">
                     <BsGraphUp className="me-2 text-primary" />
-                    User Activity
+                    Administrator Activity
                   </h5>
                   <small className="text-muted">Current status of team members</small>
                 </div>
@@ -690,7 +690,7 @@ export default function ProfileDashboard() {
                         </div>
                       </div>
                       <div className="flex-grow-1 ms-3">
-                        <p className="mb-1 fw-semibold">New user registration completed</p>
+                        <p className="mb-1 fw-semibold">New Administrator registration completed</p>
                         <small className="text-muted">John Doe joined Engineering • 2h ago</small>
                       </div>
                     </div>
@@ -702,7 +702,7 @@ export default function ProfileDashboard() {
                         </div>
                       </div>
                       <div className="flex-grow-1 ms-3">
-                        <p className="mb-1 fw-semibold">Profile update pending</p>
+                        <p className="mb-1 fw-semibold">Administrator update pending</p>
                         <small className="text-muted">Sarah Smith needs verification • 4h ago</small>
                       </div>
                     </div>
@@ -746,7 +746,7 @@ export default function ProfileDashboard() {
                 <div className="card-header bg-light border-0">
                   <h5 className="mb-0 d-flex align-items-center">
                     <BsPieChart className="me-2 text-primary" />
-                    User Status Distribution
+                    Administrator Status Distribution
                   </h5>
                 </div>
                 <div className="card-body">
@@ -781,7 +781,7 @@ export default function ProfileDashboard() {
                 <div className="card-header bg-light border-0">
                   <h5 className="mb-0 d-flex align-items-center">
                     <BsBarChart className="me-2 text-primary" />
-                    Age Distribution
+                    Administrator Age Distribution
                   </h5>
                 </div>
                 <div className="card-body">
@@ -940,9 +940,9 @@ export default function ProfileDashboard() {
           <div className="card border-0 shadow">
             <div className="card-header bg-light border-0">
               <div className="d-flex justify-content-between align-items-center">
-                <h5 className="mb-0">User Records</h5>
+                <h5 className="mb-0">Administrator Records</h5>
                 <small className="text-muted">
-                  Showing {filteredUsers.length} of {users.length} users
+                  Showing {filteredUsers.length} of {users.length} Administrators
                 </small>
               </div>
             </div>
@@ -955,7 +955,7 @@ export default function ProfileDashboard() {
                         style={{ cursor: 'pointer', userSelect: 'none' }}
                         onClick={() => handleSort("name")}
                       >
-                        User Name {getSortIcon("name")}
+                        Administrator Name {getSortIcon("name")}
                       </th>
                       <th
                         style={{ cursor: 'pointer', userSelect: 'none' }}
@@ -967,7 +967,7 @@ export default function ProfileDashboard() {
                         style={{ cursor: 'pointer', userSelect: 'none' }}
                         onClick={() => handleSort("employeeId")}
                       >
-                        Employee ID {getSortIcon("employeeId")}
+                        Administrator ID {getSortIcon("employeeId")}
                       </th>
                       <th
                         style={{ cursor: 'pointer', userSelect: 'none' }}
@@ -1111,7 +1111,7 @@ export default function ProfileDashboard() {
                     </div>
                     <div className="flex-grow-1">
                       <h3 className="modal-title fw-bold mb-2 text-white">
-                        User Profile
+                        Administrator Profile
                       </h3>
                       <p className="mb-0 text-white-75 fs-5">
                         {new Date(selectedUserDetail.createdAt || Date.now()).toLocaleDateString('en-US', {
@@ -1150,7 +1150,7 @@ export default function ProfileDashboard() {
                     <div className="col-12">
                       <h5 className="fw-bold mb-4 d-flex align-items-center" style={{ color: '#1f2937' }}>
                         <BsGraphUp className="me-3 text-primary" />
-                        User Metrics
+                        Administrator Metrics
                       </h5>
                     </div>
 
@@ -1297,7 +1297,7 @@ export default function ProfileDashboard() {
                         <div className="card-body p-4">
                           <h6 className="fw-bold mb-4 d-flex align-items-center" style={{ color: '#374151' }}>
                             <BsPerson className="me-3 text-primary" />
-                            User Information
+                            Administrator Information
                           </h6>
 
                           <div className="row g-4">
@@ -1311,7 +1311,7 @@ export default function ProfileDashboard() {
                             </div>
                             <div className="col-md-6">
                               <div className="border-start border-4 border-info ps-3">
-                                <small className="text-muted text-uppercase fw-semibold" style={{ fontSize: '0.75rem' }}>Employee ID</small>
+                                <small className="text-muted text-uppercase fw-semibold" style={{ fontSize: '0.75rem' }}>Administrator ID</small>
                                 <p className="fw-bold mb-0 mt-1" style={{ color: '#1f2937' }}>
                                   {selectedUserDetail.employeeId || 'N/A'}
                                 </p>
@@ -1375,7 +1375,7 @@ export default function ProfileDashboard() {
                               e.target.src = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&auto=format';
                             }}
                           />
-                          <h6 className="fw-bold mb-3 text-black-75">User Profile</h6>
+                          <h6 className="fw-bold mb-3 text-black-75">Administrator Profile</h6>
                           <h2 className="fw-bold text-black mb-2">
                             {selectedUserDetail.name}
                           </h2>

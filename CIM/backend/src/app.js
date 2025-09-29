@@ -12,6 +12,11 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
+app.use('/api/reports', require('./routes/reports'));
+app.use('/api/search', require('./routes/search'));
+app.use('/api/auth', require('./routes/auth.routes'));
+
+
 connectDB().then(()=>{
   console.log('Mongo connected');
   startJobs();
