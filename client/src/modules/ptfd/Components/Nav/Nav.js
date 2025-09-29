@@ -127,7 +127,7 @@ export default function Nav() {
 
               <li className="nav-menu-item">
                 <NavLink
-                  to="/ETM"
+                  to="/ETM/admin"
                   className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
                   onClick={closeMenu}
                 >

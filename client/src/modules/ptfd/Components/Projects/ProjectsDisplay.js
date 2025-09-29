@@ -446,7 +446,7 @@ export default function ProjectsDisplay() {
                     </p>
                     <div className="row g-3 mt-2">
                       <div className="col-auto">
-                        <button className="btn btn-light btn-lg shadow" onClick={() => navigate("/add-project")} style={{ padding: '12px 30px', borderRadius: '50px', fontSize: '1.1rem' }}>
+                        <button className="btn btn-light btn-lg shadow" onClick={() => navigate("/ptfd/add-project")} style={{ padding: '12px 30px', borderRadius: '50px', fontSize: '1.1rem' }}>
                           <BsBuilding className="me-2" />
                           Create A Project
                         </button>
