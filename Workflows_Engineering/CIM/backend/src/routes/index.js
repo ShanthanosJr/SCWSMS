@@ -1,0 +1,13 @@
+const { Router } = require('express');
+const auth = require('./auth.routes');
+const inspections = require('./inspections.routes');
+const complaints = require('./complaints.routes');
+const analytics = require('./analytics.routes');
+const reports = require('./reports.routes');
+const r = Router();
+r.use('/auth', auth);
+r.use('/inspections', inspections);
+r.use('/complaints', complaints);
+r.use('/analytics', analytics);
+r.use('/reports', reports);
+module.exports = r;

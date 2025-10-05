@@ -1,0 +1,11 @@
+:root{--brand:#0d6efd}
+.card-cta{transition:transform .1s ease, box-shadow .1s ease}
+.card-cta:hover{transform:translateY(-2px); box-shadow:0 .5rem 1rem rgba(0,0,0,.15)}
+.status-UPCOMING{background:#e7f1ff; color:#0d6efd; padding:.25rem .5rem; border-radius:.5rem}
+.status-COMPLETED{background:#e6f4ea; color:#137333; padding:.25rem .5rem; border-radius:.5rem}
+.status-OVERDUE{background:#fde8e8; color:#c62828; padding:.25rem .5rem; border-radius:.5rem}
+.status-OPEN{background:#fff3cd; color:#8a6d3b; padding:.25rem .5rem; border-radius:.5rem}
+.status-IN_PROGRESS{background:#e7f1ff; color:#0d6efd; padding:.25rem .5rem; border-radius:.5rem}
+.status-RESOLVED{background:#e6f4ea; color:#137333; padding:.25rem .5rem; border-radius:.5rem}
+.nav-link{cursor:pointer}
+.maxw-380{max-width:380px}
